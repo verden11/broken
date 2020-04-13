@@ -1,12 +1,12 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
-import SignIn from './src/components/SignIn';
+import { NavigationContainer } from '@react-navigation/native';
+import RootStackNavigator from './src/navigation/RootStackNavigator';
 
 function App() {
   return (
-    <SafeAreaView>
-      <SignIn />
-    </SafeAreaView>
+    <NavigationContainer>
+      <RootStackNavigator />
+    </NavigationContainer>
   );
 }
 

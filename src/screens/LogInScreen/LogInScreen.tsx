@@ -1,32 +1,10 @@
 import auth from '@react-native-firebase/auth';
-import { Button, Input, Item, Spinner, Text, Form, Label } from 'native-base';
+import { Button, Input, Item, Label, Spinner, Text } from 'native-base';
 import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
+import { IUser, Props } from './LoginScreen.interface';
 
-interface providerData {
-  displayName: any;
-  email: string;
-  phoneNumber: any;
-  photoURL: any;
-  providerId: string;
-  uid: string;
-}
-
-interface IUser {
-  displayName: any;
-  email: string;
-  emailVerified: boolean;
-  isAnonymous: boolean;
-  metadata: { creationTime: number; lastSignInTime: number };
-  phoneNumber: any;
-  photoURL: any;
-  providerData: [providerData];
-
-  providerId: 'firebase';
-  uid: string;
-}
-
-function SignIn() {
+function LogInScreen({ navigation: { navigate } }: Props) {
   const [initializing, setInitializing] = useState<boolean>(true);
   const [user, setUser] = useState<IUser>();
   const [email, setEmail] = useState<string>('');
@@ -50,38 +28,23 @@ function SignIn() {
     if (email && password) {
       auth()
         .signInWithEmailAndPassword(email, password)
-        .then(() => setError(null))
+        .then(() => {
+          setError(null);
+          navigate('Listings');
+        })
         .catch(setError);
     }
-  }, [email, password]);
-
-  const register = useCallback(() => {
-    if (email && password) {
-      auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(() => setError(null))
-        .catch(setError);
-    }
-  }, [email, password]);
-
-  const logout = useCallback(() => {
-    if (user) {
-      auth()
-        .signOut()
-        .then(() => setError(null))
-        .catch(setError);
-    }
-  }, [user]);
+  }, [email, password, navigate]);
 
   if (initializing) return <Spinner />;
 
   return (
     <>
-      <Item floatingLabel style={styles.m3}>
+      <Item style={styles.m5}>
         <Label>Email</Label>
         <Input value={email} onChangeText={(text: string) => setEmail(text)} />
       </Item>
-      <Item floatingLabel style={styles.m3}>
+      <Item style={styles.m5}>
         <Label>Password</Label>
         <Input
           value={password}
@@ -89,14 +52,8 @@ function SignIn() {
           secureTextEntry
         />
       </Item>
-      <Button block primary onPress={login} style={styles.m3}>
+      <Button block primary onPress={login} style={styles.m5}>
         <Text>Log in</Text>
-      </Button>
-      <Button block onPress={register} style={styles.m3}>
-        <Text>Register</Text>
-      </Button>
-      <Button block dark onPress={logout} style={styles.m3}>
-        <Text>Log out</Text>
       </Button>
       {error && <Text>Error: {error.message}</Text>}
     </>
@@ -104,12 +61,8 @@ function SignIn() {
 }
 
 const styles = StyleSheet.create({
-  p3: {
-    padding: 10,
-  },
-  m3: {
-    margin: 5,
-  },
+  p10: { padding: 10 },
+  m5: { margin: 5 },
 });
 
-export default SignIn;
+export default LogInScreen;
