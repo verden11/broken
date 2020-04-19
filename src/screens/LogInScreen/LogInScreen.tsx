@@ -1,56 +1,29 @@
-import auth from '@react-native-firebase/auth';
-import { Button, Input, Item, Label, Spinner, Text } from 'native-base';
-import React, { useCallback, useEffect, useState } from 'react';
+import { Button, Input, Item, Label, Text } from 'native-base';
+import React, { useCallback, useState, useContext } from 'react';
 import { StyleSheet } from 'react-native';
-import { IUser, Props } from './LoginScreen.interface';
+import { AuthContext } from '../../context/AuthContext';
+import { Props } from './LoginScreen.interface';
 
-function LogInScreen({ navigation: { navigate } }: Props) {
-  const [initializing, setInitializing] = useState<boolean>(true);
-  const [user, setUser] = useState<IUser>();
+function LogInScreen({ navigation }: Props) {
+  const { authContext } = useContext(AuthContext);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<Error | null>(null);
 
-  const onAuthStateChanged = useCallback(
-    usr => {
-      setUser(usr);
-      if (initializing) setInitializing(false);
-    },
-    [initializing]
-  );
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, [onAuthStateChanged]);
-
   const login = useCallback(() => {
-    if (email && password) {
-      auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(() => {
-          setError(null);
-          navigate('Listings');
-        })
-        .catch(setError);
-    }
-  }, [email, password, navigate]);
+    authContext.signIn(email, password).catch(setError);
+  }, [authContext, email, password]);
 
-  if (initializing) return <Spinner />;
-
+  // @TODO show loading spinner after clicking login
   return (
     <>
       <Item style={styles.m5}>
         <Label>Email</Label>
-        <Input value={email} onChangeText={(text: string) => setEmail(text)} />
+        <Input value={email} onChangeText={setEmail} />
       </Item>
       <Item style={styles.m5}>
         <Label>Password</Label>
-        <Input
-          value={password}
-          onChangeText={(text: string) => setPassword(text)}
-          secureTextEntry
-        />
+        <Input value={password} onChangeText={setPassword} secureTextEntry />
       </Item>
       <Button block primary onPress={login} style={styles.m5}>
         <Text>Log in</Text>

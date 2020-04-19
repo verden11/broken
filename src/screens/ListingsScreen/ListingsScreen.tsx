@@ -1,14 +1,15 @@
-import React from 'react';
-import { View, Text, Button } from 'native-base';
-
+import { Button, Text, View } from 'native-base';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 import { Props } from './ListingsScreen.interface';
 
-function ListingsScreen({ navigation: { goBack } }: Props) {
+function ListingsScreen({ navigation }: Props) {
+  const { authContext } = useContext(AuthContext);
   return (
     <View>
       <Text>Listings Screen</Text>
-      <Button onPress={goBack}>
-        <Text>Go Back</Text>
+      <Button onPress={authContext.signOut}>
+        <Text>Logout</Text>
       </Button>
     </View>
   );
