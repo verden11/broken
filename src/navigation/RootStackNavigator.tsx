@@ -1,17 +1,13 @@
 import { createStackNavigator } from '@react-navigation/stack';
+import { Icon } from 'native-base';
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import {
-  ListingsScreen,
-  LogInScreen,
-  RegisterScreen,
-  SplashScreen,
-  WelcomeScreen,
-} from '../screens';
+import { LogInScreen, RegisterScreen, SplashScreen, WelcomeScreen } from '../screens';
+import DrawerNavigation from './DrawerNavigation';
 
 const RootStack = createStackNavigator();
 function RootStackNavigator() {
-  const { isAuth, isLoading } = useContext(AuthContext);
+  const { isAuth, isLoading, authContext } = useContext(AuthContext);
 
   if (isLoading) {
     return <SplashScreen />;
@@ -22,15 +18,17 @@ function RootStackNavigator() {
       {isAuth ? (
         <>
           <RootStack.Screen
-            name="Listings"
-            component={ListingsScreen}
-            options={{ headerShown: false }}
+            name="DrawerNavigation"
+            component={DrawerNavigation}
+            options={{
+              headerRight: () => <Icon name="menu" onPress={authContext.signOut} />,
+            }}
           />
         </>
       ) : (
         <>
           <RootStack.Screen name="Welcome" component={WelcomeScreen} />
-          <RootStack.Screen name="LogIn" component={LogInScreen} />
+          <RootStack.Screen name="LogIn" component={LogInScreen} options={{ title: 'Log in' }} />
           <RootStack.Screen name="Register" component={RegisterScreen} />
         </>
       )}
