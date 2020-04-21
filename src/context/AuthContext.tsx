@@ -26,7 +26,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const authContext = useMemo(
     () => ({
       signIn: async (email: string, password: string) => {
-        if (email && password) return auth().signInWithEmailAndPassword(email, password);
+        if (email && password) return auth().signInWithEmailAndPassword(email.trim(), password);
       },
       signOut: () => auth().signOut(),
       signUp: async (email: string, password: string) => {

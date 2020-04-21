@@ -21,7 +21,7 @@ function RootStackNavigator() {
             name="DrawerNavigation"
             component={DrawerNavigation}
             options={{
-              headerRight: () => <Icon name="menu" onPress={authContext.signOut} />,
+              headerRight: () => <Icon name="ios-log-out" onPress={authContext.signOut} />,
             }}
           />
         </>
