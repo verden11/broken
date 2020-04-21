@@ -7,7 +7,7 @@ import DrawerNavigation from './DrawerNavigation';
 
 const RootStack = createStackNavigator();
 function RootStackNavigator() {
-  const { isAuth, isLoading, authContext } = useContext(AuthContext);
+  const { isAuth, isLoading, authContext, user } = useContext(AuthContext);
 
   if (isLoading) {
     return <SplashScreen />;
@@ -22,6 +22,7 @@ function RootStackNavigator() {
             component={DrawerNavigation}
             options={{
               headerRight: () => <Icon name="ios-log-out" onPress={authContext.signOut} />,
+              title: `Welcome ${user?.email}`,
             }}
           />
         </>

@@ -28,7 +28,10 @@ const AuthProvider: React.FC = ({ children }) => {
       signIn: async (email: string, password: string) => {
         if (email && password) return auth().signInWithEmailAndPassword(email.trim(), password);
       },
-      signOut: () => auth().signOut(),
+      signOut: () => {
+        setLoading(true);
+        auth().signOut();
+      },
       signUp: async (email: string, password: string) => {
         return auth().createUserWithEmailAndPassword(email, password);
       },
@@ -37,7 +40,7 @@ const AuthProvider: React.FC = ({ children }) => {
   );
 
   return (
-    <AuthContext.Provider value={{ authContext, isAuth, isLoading }}>
+    <AuthContext.Provider value={{ authContext, isAuth, isLoading, user }}>
       {children}
     </AuthContext.Provider>
   );
