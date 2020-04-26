@@ -1,7 +1,7 @@
-import { Container, Header, Title, Subtitle, Body } from 'native-base';
+import { Container, Header, Title, Subtitle, Body, Text } from 'native-base';
 import React from 'react';
 import { FlatList } from 'react-native';
-import { AdItem } from '../../components';
+import { AdItem, Separator } from '../../components';
 
 // @TODO get data from the cloud
 const DATA = [
@@ -56,6 +56,7 @@ const BrowseScreen: React.FC = () => {
       </Header>
       <FlatList
         data={DATA}
+        ItemSeparatorComponent={Separator}
         renderItem={({ item }) => <AdItem item={item} />}
         keyExtractor={item => item.id}
       />
