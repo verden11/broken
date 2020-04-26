@@ -1,7 +1,7 @@
+import { Container, Header, Title, Subtitle, Body } from 'native-base';
 import React from 'react';
-import { SafeAreaView, FlatList, StyleSheet } from 'react-native';
-import { View, Text } from 'native-base';
-import { Image } from 'react-native';
+import { FlatList } from 'react-native';
+import { AdItem } from '../../components';
 
 // @TODO get data from the cloud
 const DATA = [
@@ -45,45 +45,22 @@ const DATA = [
   },
 ];
 
-function Item({ item }) {
-  const { title, description, price, img } = item;
-  return (
-    <View style={styles.item}>
-      {/* <Image source={{ uri: img[0].toString() }} /> */}
-      <Image source={{ uri: img[0] }} style={{ width: 50, height: 50 }} resizeMode="contain" />
-      <Text style={styles.title}>{title}</Text>
-      <Text>{description}</Text>
-      <Text>{price}</Text>
-    </View>
-  );
-}
-
 const BrowseScreen: React.FC = () => {
   return (
-    <>
-      <SafeAreaView>
-        <FlatList
-          data={DATA}
-          renderItem={({ item }) => <Item item={item} />}
-          keyExtractor={item => item.id}
-        />
-      </SafeAreaView>
-    </>
+    <Container>
+      <Header>
+        <Body>
+          <Title>Browse Screen</Title>
+          <Subtitle>Render all item</Subtitle>
+        </Body>
+      </Header>
+      <FlatList
+        data={DATA}
+        renderItem={({ item }) => <AdItem item={item} />}
+        keyExtractor={item => item.id}
+      />
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  title: {
-    fontSize: 16,
-  },
-});
 export default BrowseScreen;
