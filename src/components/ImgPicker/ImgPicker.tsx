@@ -26,8 +26,8 @@ const ImgPicker: React.FC = () => {
     });
   };
 
-  function renderFileData() {
-    return (
+  return (
+    <Item style={styles.imageContainer} onPress={choosePicture}>
       <Image
         source={
           fileData ? { uri: 'data:image/jpeg;base64,' + fileData } : require('../assets/dummy.png')
@@ -35,25 +35,17 @@ const ImgPicker: React.FC = () => {
         resizeMode="contain"
         style={styles.images}
       />
-    );
-  }
-
-  return (
-    <Item style={styles.ImageSections} onPress={choosePicture}>
-      {renderFileData()}
     </Item>
   );
 };
 
 const styles = StyleSheet.create({
-  ImageSections: {
+  imageContainer: {
     flex: 1,
     padding: 10,
     justifyContent: 'center',
   },
-  images: {
-    flex: 1,
-  },
+  images: { flex: 1, aspectRatio: 1 },
 });
 
-export default ImgPicker;
+export default React.memo(ImgPicker);
