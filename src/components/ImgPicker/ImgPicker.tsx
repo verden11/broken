@@ -9,7 +9,11 @@ const ImgPicker: React.FC = () => {
   const choosePicture = () => {
     let options = {
       title: 'Select Photo',
+      takePhotoButtonTitle: 'Take Photo',
+      chooseFromLibraryButtonTitle: 'Choose from Gallery',
+      mediaType: 'photo',
       storageOptions: {
+        privateDirectory: true,
         skipBackup: true,
         path: 'images',
       },
