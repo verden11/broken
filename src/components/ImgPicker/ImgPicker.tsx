@@ -1,17 +1,20 @@
 import { Item } from 'native-base';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Image, StyleSheet } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
+import storage from '@react-native-firebase/storage';
+import { AuthContext } from '../../context/AuthContext';
 
-const ImgPicker: React.FC = () => {
-  const [fileData, setFileData] = useState('');
+const ImgPicker: React.FC<{ upload?: Function }> = ({ upload }) => {
+  const [fileUri, setFileUri] = useState('');
+  const { user } = useContext(AuthContext);
 
   const choosePicture = () => {
     let options = {
       title: 'Select Photo',
       takePhotoButtonTitle: 'Take Photo',
       chooseFromLibraryButtonTitle: 'Choose from Gallery',
-      mediaType: 'photo',
+      noData: true,
       storageOptions: {
         privateDirectory: true,
         skipBackup: true,
@@ -19,13 +22,19 @@ const ImgPicker: React.FC = () => {
       },
     };
 
-    ImagePicker.showImagePicker(options, response => {
+    ImagePicker.showImagePicker(options, async response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-        setFileData(response.data);
+        setFileUri(response.uri);
+        if (response.path) {
+          const filePath = `${user.uid}/${response.fileName}`;
+          const reference = storage().ref(filePath);
+          await reference.putFile(response.path);
+          if (upload) upload(filePath);
+        }
       }
     });
   };
@@ -33,9 +42,7 @@ const ImgPicker: React.FC = () => {
   return (
     <Item style={styles.imageContainer} onPress={choosePicture}>
       <Image
-        source={
-          fileData ? { uri: 'data:image/jpeg;base64,' + fileData } : require('../assets/dummy.png')
-        }
+        source={fileUri ? { uri: fileUri } : require('../assets/dummy.png')}
         resizeMode="contain"
         style={styles.images}
       />

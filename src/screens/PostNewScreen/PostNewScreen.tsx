@@ -17,10 +17,19 @@ import {
 import React from 'react';
 import { StyleSheet, useWindowDimensions, ImageBackground } from 'react-native';
 import { ImgPicker } from '../../components';
+import firestore from '@react-native-firebase/firestore';
 
 export const PostNewScreen: React.FC = () => {
   const windowWidth = Math.round(useWindowDimensions().width);
   const windowHeight = Math.round(useWindowDimensions().height);
+
+  function postToFirebase(data: any) {
+    console.log(data);
+    firestore()
+      .collection('listings')
+      .add(data)
+      .then(() => console.log('added'));
+  }
 
   return (
     <Container>
@@ -40,16 +49,22 @@ export const PostNewScreen: React.FC = () => {
           <View style={styles.container}>
             <Text style={styles.formTitle}>Post a new Item</Text>
             <Formik
-              initialValues={{ title: '', description: '', price: '' }}
-              onSubmit={values => console.log(values)}
+              initialValues={{
+                title: '',
+                description: '',
+                price: '',
+                img1: '',
+                img2: '',
+                img3: '',
+              }}
+              onSubmit={postToFirebase}
             >
-              {({ handleChange, handleBlur, handleSubmit, values }) => (
+              {({ handleChange, handleSubmit, values }) => (
                 <Form style={styles.grow}>
                   <View style={styles.grow}>
                     <Item regular>
                       <Input
                         onChangeText={handleChange('title')}
-                        onBlur={handleBlur('title')}
                         value={values.title}
                         placeholder="title"
                       />
@@ -62,19 +77,13 @@ export const PostNewScreen: React.FC = () => {
                       onChangeText={handleChange('description')}
                     />
                     <View style={styles.imageRow}>
-                      <ImgPicker />
-                      <ImgPicker />
-                      <ImgPicker />
-                    </View>
-                    <View style={styles.imageRow}>
-                      <ImgPicker />
-                      <ImgPicker />
-                      <ImgPicker />
+                      <ImgPicker upload={handleChange('img1')} />
+                      <ImgPicker upload={handleChange('img2')} />
+                      <ImgPicker upload={handleChange('img3')} />
                     </View>
                     <Item regular>
                       <Input
                         onChangeText={handleChange('price')}
-                        onBlur={handleBlur('price')}
                         value={values.price}
                         placeholder="price"
                       />
