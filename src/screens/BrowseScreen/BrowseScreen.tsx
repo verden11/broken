@@ -1,26 +1,35 @@
 import { Container, Header, Title, Subtitle, Body } from 'native-base';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import { AdItem, Separator } from '../../components';
 import firestore from '@react-native-firebase/firestore';
 
-const DATA = [];
+type fireStoreDoc = {
+  id: string;
+  img1?: string;
+  img2?: string;
+  img3?: string;
+  price?: string;
+  title?: string;
+};
 
 const BrowseScreen: React.FC = () => {
-  useEffect(() => {
-    (async () => {
-      await firestore()
-        .collection('listings')
-        .get()
-        .then(querySnapshot => {
-          // console.log('Total users: ', querySnapshot.size);
+  const [data, setData] = useState<fireStoreDoc[]>([]);
+  const [isRefreshing, setRefreshing] = useState<boolean>(false);
+  const collectionRef = firestore().collection('listings');
 
-          querySnapshot.forEach(documentSnapshot => {
-            DATA.push({ id: documentSnapshot.id, ...documentSnapshot.data() });
-          });
-        });
-    })();
+  async function refresh() {
+    setRefreshing(true);
+    const data = await collectionRef.get();
+    const documents = data.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setData(documents);
+    setRefreshing(false);
+  }
+
+  useEffect(() => {
+    refresh();
   }, []);
+
   return (
     <Container>
       <Header>
@@ -30,10 +39,12 @@ const BrowseScreen: React.FC = () => {
         </Body>
       </Header>
       <FlatList
-        data={DATA}
+        data={data}
         ItemSeparatorComponent={Separator}
         renderItem={({ item }) => <AdItem item={item} />}
         keyExtractor={item => item.id}
+        refreshing={isRefreshing}
+        onRefresh={refresh}
       />
     </Container>
   );
