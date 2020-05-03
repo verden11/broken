@@ -1,8 +1,8 @@
-import { Container, Header, Title, Subtitle, Body } from 'native-base';
-import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
-import { AdItem, Separator } from '../../components';
 import firestore from '@react-native-firebase/firestore';
+import { Body, Container, Header, Subtitle, Title } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet } from 'react-native';
+import { AdItem, Separator } from '../../components';
 
 type fireStoreDoc = {
   id: string;
@@ -32,13 +32,14 @@ const BrowseScreen: React.FC = () => {
 
   return (
     <Container>
-      <Header>
+      <Header style={styles['bg-gray-300']}>
         <Body>
-          <Title>Browse Screen</Title>
-          <Subtitle>Render all item</Subtitle>
+          <Title style={styles['text-orange-600']}>Browse Screen</Title>
+          <Subtitle style={styles['text-orange-600']}>Render all item</Subtitle>
         </Body>
       </Header>
       <FlatList
+        style={styles['bg-gray-700']}
         data={data}
         ItemSeparatorComponent={Separator}
         renderItem={({ item }) => <AdItem item={item} />}
@@ -49,5 +50,13 @@ const BrowseScreen: React.FC = () => {
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  'text-orange-600': { color: '#dd6b20' },
+  'bg-gray-300': { backgroundColor: '#e2e8f0' },
+  'bg-gray-700': {
+    backgroundColor: '#4a5568',
+  },
+});
 
 export default BrowseScreen;

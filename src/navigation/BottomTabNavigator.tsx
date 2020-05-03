@@ -1,13 +1,14 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { BrowseScreen, PostNewScreen } from '../screens';
+import { StyleSheet } from 'react-native';
 import { BrowseIcon, PostNewIcon } from '../Icons';
+import { BrowseScreen, PostNewScreen } from '../screens';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator: React.FC = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator tabBarOptions={{ style: styles['bg-gray-300'] }}>
       <Tab.Screen
         name="Browse"
         component={BrowseScreen}
@@ -21,5 +22,9 @@ const BottomTabNavigator: React.FC = () => {
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  'bg-gray-300': { backgroundColor: '#e2e8f0' },
+});
 
 export default BottomTabNavigator;
