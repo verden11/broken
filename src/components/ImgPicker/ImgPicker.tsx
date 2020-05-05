@@ -5,7 +5,7 @@ import ImagePicker from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
 import { AuthContext } from '../../context/AuthContext';
 
-const ImgPicker: React.FC<{ upload?: Function }> = ({ upload }) => {
+const ImgPicker: React.FC<{ upload: Function; value: string }> = ({ upload, value }) => {
   const [fileUri, setFileUri] = useState('');
   const { user } = useContext(AuthContext);
 
@@ -33,7 +33,7 @@ const ImgPicker: React.FC<{ upload?: Function }> = ({ upload }) => {
           const filePath = `${user.uid}/${response.fileName}`;
           const reference = storage().ref(filePath);
           await reference.putFile(response.path);
-          if (upload) upload(filePath);
+          upload(filePath);
         }
       }
     });
@@ -42,7 +42,7 @@ const ImgPicker: React.FC<{ upload?: Function }> = ({ upload }) => {
   return (
     <Item style={styles.imageContainer} onPress={choosePicture}>
       <Image
-        source={fileUri ? { uri: fileUri } : require('../assets/dummy.png')}
+        source={fileUri && value ? { uri: fileUri } : require('../assets/dummy.png')}
         resizeMode="contain"
         style={styles.images}
       />

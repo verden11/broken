@@ -13,6 +13,7 @@ const NewAdForm = () => {
       .add(data)
       .then(() => console.log('added'));
   }
+
   return (
     <Formik
       initialValues={{
@@ -25,7 +26,7 @@ const NewAdForm = () => {
       }}
       onSubmit={postToFirebase}
     >
-      {({ handleChange, handleSubmit, values }) => (
+      {({ handleChange, handleSubmit, values, resetForm }) => (
         <Form style={styles.grow}>
           <View style={styles.grow}>
             <Item regular>
@@ -36,16 +37,17 @@ const NewAdForm = () => {
               />
             </Item>
             <Textarea
+              value={values.description}
+              placeholder="Description"
+              onChangeText={handleChange('description')}
               rowSpan={5}
               underline={false}
               bordered
-              placeholder="Description"
-              onChangeText={handleChange('description')}
             />
             <View style={styles.imageRow}>
-              <ImgPicker upload={handleChange('img1')} />
-              <ImgPicker upload={handleChange('img2')} />
-              <ImgPicker upload={handleChange('img3')} />
+              <ImgPicker upload={handleChange('img1')} value={values.img1} />
+              <ImgPicker upload={handleChange('img2')} value={values.img2} />
+              <ImgPicker upload={handleChange('img3')} value={values.img3} />
             </View>
             <Item regular>
               <Input
@@ -56,7 +58,13 @@ const NewAdForm = () => {
             </Item>
           </View>
           <View>
-            <Button onPress={handleSubmit} style={styles.justifyCenter}>
+            <Button
+              onPress={() => {
+                handleSubmit();
+                resetForm();
+              }}
+              style={styles.justifyCenter}
+            >
               <Text>Submit</Text>
             </Button>
           </View>
