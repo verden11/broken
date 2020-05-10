@@ -6,11 +6,12 @@ import { AdItem, Separator } from '../../components';
 
 type fireStoreDoc = {
   id: string;
+  title?: string;
+  description?: string;
+  price?: string;
   img1?: string;
   img2?: string;
   img3?: string;
-  price?: string;
-  title?: string;
 };
 
 const BrowseScreen: React.FC = () => {
