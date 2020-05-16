@@ -40,9 +40,9 @@ const styles = StyleSheet.create({
   container: { flex: 1, flexDirection: 'row', padding: 10 },
   'bg-gray-400': { backgroundColor: '#cbd5e0' },
   content: { flex: 2, paddingLeft: 20 },
-  title: { fontSize: 24, fontWeight: '500', textAlign: 'center', textTransform: 'capitalize' },
-  description: { fontSize: 14, paddingHorizontal: 20, flexGrow: 1 },
-  price: { textAlign: 'center', fontSize: 16 },
+  title: { fontSize: 24, fontWeight: '500', textTransform: 'capitalize' },
+  description: { fontSize: 14, flexGrow: 1 },
+  price: { fontSize: 16 },
 });
 
 export default AdItem;
