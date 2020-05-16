@@ -16,10 +16,11 @@ const AdSchema = Yup.object().shape({
 
 const NewAdForm = () => {
   function postToFirebase(data: any) {
-    console.log(data);
+    const formatedData = { ...data, images: data.images.filter(Boolean) };
+    console.log(formatedData);
     firestore()
       .collection('listings')
-      .add({ ...data })
+      .add(formatedData)
       .then(() => console.log('added'));
     // @ TODO add catch / error handling
   }
@@ -30,7 +31,7 @@ const NewAdForm = () => {
         title: '',
         description: '',
         price: '',
-        images: [],
+        images: ['', '', ''],
       }}
       validationSchema={AdSchema}
       onSubmit={postToFirebase}
@@ -57,6 +58,13 @@ const NewAdForm = () => {
               bordered
             />
 
+            <Input
+              onChangeText={handleChange('price')}
+              value={values.price}
+              placeholder="price"
+              style={styles.inputField}
+            />
+
             <View style={styles.imageRow}>
               {values.images.map((image, index) => (
                 <ImgPicker
@@ -66,23 +74,16 @@ const NewAdForm = () => {
                 />
               ))}
             </View>
-
-            <Input
-              onChangeText={handleChange('price')}
-              value={values.price}
-              placeholder="price"
-              style={styles.inputField}
-            />
           </View>
           <View>
             <Button
-              onPress={() => setFieldValue('images', [...values.images.filter(Boolean), ''])}
+              onPress={() => setFieldValue('images', [...values.images, ''])}
               style={styles.justifyCenter}
               info
             >
-              <Text>Add Image</Text>
+              <Text>Add more images</Text>
             </Button>
-            <Button onPress={handleSubmit} style={styles.justifyCenter} primary>
+            <Button onPress={handleSubmit} style={styles.justifyCenter} info>
               <Text>Submit</Text>
             </Button>
           </View>
@@ -93,12 +94,10 @@ const NewAdForm = () => {
 };
 
 const styles = StyleSheet.create({
-  inputField: { fontSize: 24, fontWeight: '500' },
-  container: { flex: 1 },
-  flex: { flex: 1 },
+  inputField: { fontSize: 24, fontWeight: '500', flexGrow: 0 },
   opacity: { opacity: 0.5 },
   grow: { flexGrow: 1 },
-  imageRow: { flexDirection: 'row', justifyContent: 'space-evenly' },
+  imageRow: { flexDirection: 'row', flexWrap: 'wrap' },
   justifyCenter: { justifyContent: 'center' },
   formTitle: { textAlign: 'center', fontSize: 32, fontWeight: 'bold' },
 });

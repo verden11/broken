@@ -7,11 +7,13 @@ import AdImageModal from '../AdImageModal/AdImageModal';
 const AdItem: React.FC<any> = ({ item }) => {
   const [imgUrl, setImgUrl] = useState<string>();
   const [isModal, setModal] = useState<boolean>(false);
-  const { title, description, price, img1 } = item;
+  const { title, description, price, images } = item;
   useEffect(() => {
     (async () => {
-      const url = await storage().ref(img1).getDownloadURL();
-      setImgUrl(url);
+      if (images[0]) {
+        const url = await storage().ref(images[0]).getDownloadURL();
+        setImgUrl(url);
+      }
     })();
   }, []);
 

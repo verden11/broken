@@ -53,8 +53,9 @@ const ImgPicker: React.FC<{ upload: Function; value: string }> = ({ upload, valu
 const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
+    flexGrow: 0,
+    flexBasis: '30%',
     padding: 10,
-    justifyContent: 'center',
   },
   images: { flex: 1, aspectRatio: 1 },
 });

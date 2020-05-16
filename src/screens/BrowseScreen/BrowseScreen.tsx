@@ -9,9 +9,7 @@ type fireStoreDoc = {
   title?: string;
   description?: string;
   price?: string;
-  img1?: string;
-  img2?: string;
-  img3?: string;
+  images?: string[];
 };
 
 const BrowseScreen: React.FC = () => {

@@ -15,17 +15,17 @@ export const PostNewScreen: React.FC = () => {
           <Subtitle>crate new listing</Subtitle>
         </Body>
       </Header>
-      <Content padder scrollEnabled contentContainerStyle={styles.grow}>
+      <Content padder scrollEnabled contentContainerStyle={{ flexGrow: 1 }}>
         <ImageBackground
           source={{ uri: `https://picsum.photos/${windowWidth}/${windowHeight}` }}
-          style={styles.flex}
+          style={{ flex: 1 }}
           resizeMode="cover"
-          imageStyle={styles.opacity}
+          imageStyle={{ opacity: 0.4 }}
         >
-          <View style={styles.container}>
+          <View style={{ flexGrow: 1 }}>
             <Text style={styles.formTitle}>Post a new Item</Text>
+            <NewAdForm />
           </View>
-          <NewAdForm />
         </ImageBackground>
       </Content>
     </Container>
@@ -33,10 +33,6 @@ export const PostNewScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  flex: { flex: 1 },
-  opacity: { opacity: 0.5 },
-  grow: { flexGrow: 1 },
   formTitle: { textAlign: 'center', fontSize: 32, fontWeight: 'bold' },
 });
 
