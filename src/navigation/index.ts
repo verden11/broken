@@ -1,1 +1,1 @@
-export type { RootStackParamList } from './RootStackNavigator.interface';
+export type { DrawerParamList } from './DrawerNavigator.interface';

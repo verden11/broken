@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { AuthContext } from '../../context/AuthContext';
 import { Props } from './LoginScreen.interface';
 
-function LogInScreen({ navigation }: Props) {
+const LogInScreen: React.FC<Props> = ({ navigation }) => {
   const { authContext } = useContext(AuthContext);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -31,7 +31,7 @@ function LogInScreen({ navigation }: Props) {
       {error && <Text>Error: {error.message}</Text>}
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   p10: { padding: 10 },

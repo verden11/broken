@@ -4,7 +4,7 @@ import React, { useCallback, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Props } from './RegisterScreen.interface';
 
-function RegisterScreen({ navigation: { navigate } }: Props) {
+const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<Error | null>(null);
@@ -25,15 +25,11 @@ function RegisterScreen({ navigation: { navigate } }: Props) {
     <>
       <Item style={styles.m5}>
         <Label>Email</Label>
-        <Input value={email} onChangeText={(text: string) => setEmail(text)} />
+        <Input value={email} onChangeText={setEmail} />
       </Item>
       <Item style={styles.m5}>
         <Label>Password</Label>
-        <Input
-          value={password}
-          onChangeText={(text: string) => setPassword(text)}
-          secureTextEntry
-        />
+        <Input value={password} onChangeText={setPassword} secureTextEntry />
       </Item>
       <Button block primary onPress={register} style={styles.m5}>
         <Text>Register</Text>
@@ -41,7 +37,7 @@ function RegisterScreen({ navigation: { navigate } }: Props) {
       {error && <Text>Error: {error.message}</Text>}
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   p10: { padding: 10 },
