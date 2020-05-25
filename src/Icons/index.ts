@@ -1,2 +1,2 @@
-export { default as BrowseIcon } from './BrowseIcon';
-export { default as PostNewIcon } from './PostNewIcon';
+export { BrowseIcon } from './BrowseIcon';
+export { PostNewIcon } from './PostNewIcon';

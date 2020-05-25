@@ -1,10 +1,12 @@
+import React from 'react';
+import { StyleSheet } from 'react-native';
+
 import firestore from '@react-native-firebase/firestore';
 import { Formik } from 'formik';
 import { Button, Form, Input, Text, Textarea, View } from 'native-base';
-import React, { useContext } from 'react';
-import { StyleSheet } from 'react-native';
-import { ImgPicker } from '../index';
 import * as Yup from 'yup';
+
+import { ImgPicker } from '~/components';
 
 // @ TODO improve validation scheme
 const AdSchema = Yup.object().shape({
@@ -14,7 +16,7 @@ const AdSchema = Yup.object().shape({
   images: Yup.array().compact().required('Required'), // @TODO img src should begin with user id
 });
 
-const NewAdForm = () => {
+const NewAdForm: React.FC = () => {
   function postToFirebase(data: any) {
     const formatedData = { ...data, images: data.images.filter(Boolean) };
     console.log(formatedData);

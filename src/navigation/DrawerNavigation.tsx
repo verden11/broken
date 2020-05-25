@@ -1,17 +1,18 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import React, { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Icon, Text, View } from 'native-base';
+import { toggleDrawer } from '../../RootNavigation';
+import { AuthContext } from '~/context/AuthContext';
 import {
+  BrowseScreen,
   LogInScreen,
   RegisterScreen,
   SettingsScreen,
   SplashScreen,
   WelcomeScreen,
-  BrowseScreen,
-} from '../screens';
-import BottomTabNavigator from './BottomTabNavigator';
-import { toggleDrawer } from '../../RootNavigation';
-import { Button, Text } from 'native-base';
+} from '~/screens';
+import BottomTabNavigator from '~/navigation/BottomTabNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -24,10 +25,17 @@ function DrawerNavigation() {
 
   return (
     <>
-      <Button onPress={toggleDrawer} style={{ justifyContent: 'space-between' }}>
-        <Text>Broken(app name)</Text>
-        <Text>Toggle</Text>
-      </Button>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text>BrokeN - sell your old and unused items</Text>
+        {isAuth ? (
+          <Icon name="menu" onPress={toggleDrawer} />
+        ) : (
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+            <Text>Sig in</Text>
+            <Icon name="login" type="AntDesign" onPress={toggleDrawer} />
+          </View>
+        )}
+      </View>
       <Drawer.Navigator drawerPosition="right">
         {isAuth ? (
           <>
@@ -37,7 +45,6 @@ function DrawerNavigation() {
               options={{ title: 'Listings' }}
             />
             <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
-            {/* @TODO logout button */}
           </>
         ) : (
           <>

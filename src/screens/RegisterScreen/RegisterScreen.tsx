@@ -1,7 +1,8 @@
-import auth from '@react-native-firebase/auth';
-import { Button, Input, Item, Label, Text } from 'native-base';
 import React, { useCallback, useState } from 'react';
 import { StyleSheet } from 'react-native';
+
+import auth from '@react-native-firebase/auth';
+import { Button, Input, Item, Label, Text } from 'native-base';
 import { Props } from './RegisterScreen.interface';
 
 const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Image } from 'react-native';
+
+import { Button, Text, View } from 'native-base';
 import Modal from 'react-native-modal';
-import { View, Text, Button } from 'native-base';
 
 interface props {
   isVisible: boolean;

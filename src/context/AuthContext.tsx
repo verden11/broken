@@ -28,9 +28,10 @@ const AuthProvider: React.FC = ({ children }) => {
       signIn: async (email: string, password: string) => {
         if (email && password) return auth().signInWithEmailAndPassword(email.trim(), password);
       },
-      signOut: () => {
+      signOut: async () => {
         setLoading(true);
-        auth().signOut();
+        await auth().signOut();
+        setLoading(false);
       },
       signUp: async (email: string, password: string) => {
         return auth().createUserWithEmailAndPassword(email, password);

@@ -1,7 +1,8 @@
-import { Button, Text, View } from 'native-base';
 import React from 'react';
-import { Props } from './WelcomeScreen.interface';
 import { StyleSheet } from 'react-native';
+
+import { Button, Text, View } from 'native-base';
+import { Props } from './WelcomeScreen.interface';
 
 const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
   return (

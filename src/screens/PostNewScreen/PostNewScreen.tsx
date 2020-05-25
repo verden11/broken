@@ -1,7 +1,8 @@
-import { Body, Container, Content, Header, Subtitle, Text, Title, View } from 'native-base';
 import React from 'react';
 import { ImageBackground, StyleSheet, useWindowDimensions } from 'react-native';
-import { NewAdForm } from '../../components';
+
+import { Body, Container, Content, Header, Subtitle, Text, Title, View } from 'native-base';
+import { NewAdForm } from '~/components';
 
 export const PostNewScreen: React.FC = () => {
   const windowWidth = Math.round(useWindowDimensions().width);

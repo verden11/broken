@@ -1,7 +1,9 @@
-import { Button, Input, Item, Label, Text } from 'native-base';
-import React, { useCallback, useState, useContext } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { AuthContext } from '../../context/AuthContext';
+
+import { Button, Input, Item, Label, Text } from 'native-base';
+
+import { AuthContext } from '~/context/AuthContext';
 import { Props } from './LoginScreen.interface';
 
 const LogInScreen: React.FC<Props> = ({ navigation }) => {

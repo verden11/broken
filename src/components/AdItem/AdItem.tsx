@@ -1,8 +1,10 @@
-import storage from '@react-native-firebase/storage';
-import { Item, Text, View } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet } from 'react-native';
-import AdImageModal from '../AdImageModal/AdImageModal';
+
+import storage from '@react-native-firebase/storage';
+import { Item, Text, View } from 'native-base';
+
+import { AdImageModal } from '~/components';
 
 const AdItem: React.FC<any> = ({ item }) => {
   const [imgUrl, setImgUrl] = useState<string>();

@@ -1,8 +1,10 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { BrowseIcon, PostNewIcon } from '../Icons';
-import { BrowseScreen, PostNewScreen } from '../screens';
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import { BrowseIcon, PostNewIcon } from '~/Icons';
+import { BrowseScreen, PostNewScreen } from '~/screens';
 
 const Tab = createBottomTabNavigator();
 

@@ -1,8 +1,10 @@
-import firestore from '@react-native-firebase/firestore';
-import { Body, Container, Header, Subtitle, Title } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import { AdItem, Separator } from '../../components';
+
+import firestore from '@react-native-firebase/firestore';
+import { Body, Container, Header, Subtitle, Title } from 'native-base';
+
+import { AdItem, ListItemSeparator } from '~/components';
 
 type fireStoreDoc = {
   id: string;
@@ -40,7 +42,7 @@ const BrowseScreen: React.FC = () => {
       <FlatList
         style={styles['bg-gray-700']}
         data={data}
-        ItemSeparatorComponent={Separator}
+        ItemSeparatorComponent={ListItemSeparator}
         renderItem={({ item }) => <AdItem item={item} />}
         keyExtractor={item => item.id}
         refreshing={isRefreshing}

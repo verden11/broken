@@ -1,9 +1,11 @@
-import { Item } from 'native-base';
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Image, StyleSheet } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+
 import storage from '@react-native-firebase/storage';
-import { AuthContext } from '../../context/AuthContext';
+import { Item } from 'native-base';
+import ImagePicker from 'react-native-image-picker';
+
+import { AuthContext } from '~/context/AuthContext';
 
 const ImgPicker: React.FC<{ upload: Function; value: string }> = ({ upload, value }) => {
   const [fileUri, setFileUri] = useState('');
@@ -42,7 +44,7 @@ const ImgPicker: React.FC<{ upload: Function; value: string }> = ({ upload, valu
   return (
     <Item style={styles.imageContainer} onPress={choosePicture}>
       <Image
-        source={fileUri && value ? { uri: fileUri } : require('../assets/dummy.png')}
+        source={fileUri && value ? { uri: fileUri } : require('~/assets/dummy.png')}
         resizeMode="contain"
         style={styles.images}
       />
@@ -60,4 +62,4 @@ const styles = StyleSheet.create({
   images: { flex: 1, aspectRatio: 1 },
 });
 
-export default React.memo(ImgPicker);
+export default ImgPicker;
