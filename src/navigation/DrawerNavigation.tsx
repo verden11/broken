@@ -17,7 +17,6 @@ import {
 
 import BottomTabNavigator from '~/navigation/BottomTabNavigator';
 
-
 const Drawer = createDrawerNavigator();
 
 function DrawerNavigation() {

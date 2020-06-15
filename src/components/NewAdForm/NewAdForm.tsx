@@ -20,12 +20,7 @@ const NewAdForm: React.FC = () => {
   const email = auth().currentUser?.email;
   function postToFirebase(data: any) {
     const userId = auth().currentUser?.uid;
-    const formatedData = {
-      ...data,
-      email: email,
-      userID: userId,
-      images: data.images.filter(Boolean),
-    };
+    const formatedData = { ...data, userID: userId, images: data.images.filter(Boolean) };
     console.log(formatedData);
     firestore()
       .collection('listings')
