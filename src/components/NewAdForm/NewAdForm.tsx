@@ -19,11 +19,9 @@ const AdSchema = Yup.object().shape({
 const NewAdForm: React.FC = () => {
   function postToFirebase(data: any) {
     const userId = auth().currentUser?.uid;
-    const formatedData = { ...data, images: data.images.filter(Boolean) };
+    const formatedData = { ...data, userID: userId, images: data.images.filter(Boolean) };
     console.log(formatedData);
     firestore()
-      .collection('users')
-      .doc(userId)
       .collection('listings')
       .add(formatedData)
       .then(() => console.log('added'))

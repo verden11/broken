@@ -4,6 +4,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Icon, Text, View } from 'native-base';
 import { toggleDrawer } from '../../RootNavigation';
 import { AuthContext } from '~/context/AuthContext';
+import auth from '@react-native-firebase/auth';
 import {
   BrowseScreen,
   LogInScreen,
@@ -12,7 +13,10 @@ import {
   SplashScreen,
   WelcomeScreen,
 } from '~/screens';
+import MyItems from '../screens/MyItems/MyItems';
+
 import BottomTabNavigator from '~/navigation/BottomTabNavigator';
+
 
 const Drawer = createDrawerNavigator();
 
@@ -26,7 +30,7 @@ function DrawerNavigation() {
   return (
     <>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Text>BrokeN - sell your old and unused items</Text>
+        <Text>user ID: {auth().currentUser?.uid}</Text>
         {isAuth ? (
           <Icon name="menu" onPress={toggleDrawer} />
         ) : (
@@ -44,6 +48,7 @@ function DrawerNavigation() {
               component={BottomTabNavigator}
               options={{ title: 'Listings' }}
             />
+            <Drawer.Screen name="MyItems" component={MyItems} options={{ title: 'My Items' }} />
             <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
           </>
         ) : (
