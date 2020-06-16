@@ -4,7 +4,7 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { Body, Container, Header, Subtitle, Title } from 'native-base';
 
-import { AdItem, ListItemSeparator } from '~/components';
+import { EditItem, ListItemSeparator } from '~/components';
 
 type fireStoreDoc = {
   id: string;
@@ -43,7 +43,7 @@ const MyItems: React.FC = () => {
         style={styles['bg-gray-700']}
         data={data}
         ItemSeparatorComponent={ListItemSeparator}
-        renderItem={({ item }) => <AdItem item={item} />}
+        renderItem={({ item }) => <EditItem item={item} />}
         keyExtractor={item => item.id}
         refreshing={isRefreshing}
         onRefresh={refresh}
