@@ -12,8 +12,8 @@ import {
   SettingsScreen,
   SplashScreen,
   WelcomeScreen,
+  MyItems,
 } from '~/screens';
-import MyItems from '../screens/MyItems/MyItems';
 
 import BottomTabNavigator from '~/navigation/BottomTabNavigator';
 
@@ -30,7 +30,11 @@ function DrawerNavigation() {
   return (
     <>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Text>user ID: {auth().currentUser?.uid}</Text>
+        {auth().currentUser ? (
+          <Text>user ID: {auth().currentUser?.uid}</Text>
+        ) : (
+          <Text>No user found</Text>
+        )}
         {isAuth ? (
           <Icon name="menu" onPress={toggleDrawer} />
         ) : (

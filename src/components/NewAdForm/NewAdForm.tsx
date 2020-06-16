@@ -25,9 +25,7 @@ const NewAdForm: React.FC = () => {
       .collection('listings')
       .add(formatedData)
       .then(() => console.log('added'))
-      .catch(function (error) {
-        console.error('Error writing document: ', error);
-      });
+      .catch(error => console.warn(error));
   }
 
   return (
