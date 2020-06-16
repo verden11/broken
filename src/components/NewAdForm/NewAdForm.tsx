@@ -37,6 +37,7 @@ const NewAdForm: React.FC = () => {
         description: '',
         price: '',
         images: ['', '', ''],
+        e_mail: email,
       }}
       validationSchema={AdSchema}
       onSubmit={postToFirebase}
