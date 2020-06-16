@@ -37,7 +37,6 @@ const MyItems: React.FC = () => {
       <Header style={styles['bg-gray-300']}>
         <Body>
           <Title style={styles['text-orange-600']}>My Items</Title>
-          {/* <Subtitle style={styles['text-orange-600']}>Render all item</Subtitle> */}
         </Body>
       </Header>
       <FlatList

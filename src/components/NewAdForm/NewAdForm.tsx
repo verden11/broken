@@ -17,6 +17,7 @@ const AdSchema = Yup.object().shape({
 });
 
 const NewAdForm: React.FC = () => {
+  const email = auth().currentUser?.email;
   function postToFirebase(data: any) {
     const userId = auth().currentUser?.uid;
     const formatedData = { ...data, userID: userId, images: data.images.filter(Boolean) };
@@ -26,6 +27,7 @@ const NewAdForm: React.FC = () => {
       .add(formatedData)
       .then(() => console.log('added'))
       .catch(error => console.warn(error));
+      // @ TODO add catch / error handling
   }
 
   return (
@@ -35,6 +37,7 @@ const NewAdForm: React.FC = () => {
         description: '',
         price: '',
         images: ['', '', ''],
+        e_mail: email,
       }}
       validationSchema={AdSchema}
       onSubmit={postToFirebase}
