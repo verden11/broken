@@ -5,3 +5,4 @@ export { default as SettingsScreen } from './SettingsScreen/SettingsScreen';
 export { default as SplashScreen } from './SplashScreen/SplashScreen';
 export { default as BrowseScreen } from './BrowseScreen/BrowseScreen';
 export { default as PostNewScreen } from './PostNewScreen/PostNewScreen';
+export { default as MyItems } from './MyItems/MyItems';

@@ -17,19 +17,22 @@ const AdSchema = Yup.object().shape({
 });
 
 const NewAdForm: React.FC = () => {
+  const email = auth().currentUser?.email;
   function postToFirebase(data: any) {
     const userId = auth().currentUser?.uid;
-    const formatedData = { ...data, images: data.images.filter(Boolean) };
+    const formatedData = {
+      ...data,
+      email: email,
+      userID: userId,
+      images: data.images.filter(Boolean),
+    };
     console.log(formatedData);
     firestore()
-      .collection('users')
-      .doc(userId)
       .collection('listings')
       .add(formatedData)
       .then(() => console.log('added'))
-      .catch(function (error) {
-        console.error('Error writing document: ', error);
-      });
+      .catch(error => console.warn(error));
+    // @ TODO add catch / error handling
   }
 
   return (
