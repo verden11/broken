@@ -29,7 +29,9 @@ const NewAdForm: React.FC = (props) => {
     console.log(formatedData);
     firestore()
       .collection('listings')
-      .add(formatedData)
+      .doc(props.id)
+      .update(formatedData)
+      // .add(formatedData)
       .then(() => console.log('added'))
       .catch(error => console.warn(error));
     // @ TODO add catch / error handling

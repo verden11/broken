@@ -76,7 +76,13 @@ const EditItem: React.FC<any> = ({ item, navigation }) => {
           >
             <Text style={{ textAlign: 'center' }}>Hide Modal</Text>
           </TouchableHighlight>
-          <EditPopUp title={title} description={description} price={price} images={images} />
+          <EditPopUp
+            id={id}
+            title={title}
+            description={description}
+            price={price}
+            images={images}
+          />
         </ScrollView>
       </Modal>
     </Item>
@@ -113,6 +119,7 @@ const EditPopUp = (props) => {
       description={props.description}
       price={props.price}
       images={props.images}
+      id={props.id}
     />
   );
 }
