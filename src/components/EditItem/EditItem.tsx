@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, Alert } from 'react-native';
+import { Image, StyleSheet, Alert, TouchableHighlight, Modal, ScrollView } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import storage, { firebase } from '@react-native-firebase/storage';
+import storage from '@react-native-firebase/storage';
 import { Item, Text, View, Button } from 'native-base';
-import { AdImageModal } from '~/components';
-import { PostNewScreen } from '~/screens';
+import { AdImageModal, EditForm } from '~/components';
 
 
 const EditItem: React.FC<any> = ({ item, navigation }) => {
   const [imgUrl, setImgUrl] = useState<string>();
   const [isModal, setModal] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
   // const [delete, setDelete] = useState<boolean>(false);
   const { title, description, price, images, id } = item;
 
@@ -55,9 +55,30 @@ const EditItem: React.FC<any> = ({ item, navigation }) => {
       </Button>
       {/* KAIP CIA TA NAVIGATE PADARYT AR KAD RENDERINTU PostNewScreen
       As galvoju dar kita buda su modal ir rodyt arba nerodyt */}
-      <Button onPress={() => navigation.navigate(PostNewScreen)}>
+      <Button onPress={() => setModalVisible(true)}>
         <Text>Edit</Text>
       </Button>
+
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+        }}
+      >
+        <ScrollView style={styles.scrollView}>
+          <TouchableHighlight
+            style={styles.hideModal}
+            onPress={() => {
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <Text style={{ textAlign: 'center' }}>Hide Modal</Text>
+          </TouchableHighlight>
+          <EditPopUp title={title} description={description} price={price} images={images} />
+        </ScrollView>
+      </Modal>
     </Item>
   );
 };
@@ -70,6 +91,30 @@ const styles = StyleSheet.create({
   title: { fontSize: 24, fontWeight: '500', textTransform: 'capitalize' },
   description: { fontSize: 14, flexGrow: 1 },
   price: { fontSize: 16 },
+  scrollView: {
+    // backgroundColor: 'pink',
+    marginHorizontal: 5,
+  },
+  hideModal: {
+    height: 50,
+    width: 50,
+    color: '#c6e1e3',
+    right: 5,
+    position: 'absolute',
+    zIndex: 1,
+    backgroundColor: '#e31c23',
+  },
 });
+
+const EditPopUp = (props) => {
+  return (
+    <EditForm
+      title={props.title}
+      description={props.description}
+      price={props.price}
+      images={props.images}
+    />
+  );
+}
 
 export default EditItem;
