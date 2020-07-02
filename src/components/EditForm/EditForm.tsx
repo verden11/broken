@@ -52,7 +52,6 @@ const NewAdForm: React.FC = (props) => {
       {/* @TODO show validation errors */}
       {({ handleChange, handleSubmit, values, setFieldValue, errors }) => (
         <Form style={styles.grow}>
-          {errors && <Text>{JSON.stringify(errors)}</Text>}
           <View style={styles.grow}>
             <Input
               onChangeText={handleChange('title')}
