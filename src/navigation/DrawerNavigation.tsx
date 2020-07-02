@@ -29,19 +29,15 @@ function DrawerNavigation() {
   return (
     <>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        {auth().currentUser ? (
-          <Text>user ID: {auth().currentUser?.uid}</Text>
-        ) : (
-          <Text>No user found</Text>
-        )}
+        <Text>{''}</Text>
         {isAuth ? (
-          <Icon name="menu" onPress={toggleDrawer} />
+          <Icon style={{ margin: 5, fontSize: 40 }} name="menu" onPress={toggleDrawer} />
         ) : (
-          <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
-            <Text>Sig in</Text>
-            <Icon name="login" type="AntDesign" onPress={toggleDrawer} />
-          </View>
-        )}
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+              <Text>Sig in</Text>
+              <Icon name="login" type="AntDesign" onPress={toggleDrawer} />
+            </View>
+          )}
       </View>
       <Drawer.Navigator drawerPosition="right">
         {isAuth ? (
@@ -55,14 +51,14 @@ function DrawerNavigation() {
             <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
           </>
         ) : (
-          <>
-            <Drawer.Screen name="Browse" component={BrowseScreen} />
-            <Drawer.Screen name="LogIn" component={LogInScreen} options={{ title: 'Log in' }} />
-            <Drawer.Screen name="Register" component={RegisterScreen} />
-          </>
-        )}
+            <>
+              <Drawer.Screen name="Browse" component={BrowseScreen} />
+              <Drawer.Screen name="LogIn" component={LogInScreen} options={{ title: 'Log in' }} />
+              <Drawer.Screen name="Register" component={RegisterScreen} />
+            </>
+          )}
 
-        <Drawer.Screen name="Welcome" component={WelcomeScreen} />
+        {isAuth ? null : <Drawer.Screen name="Welcome" component={WelcomeScreen} />}
       </Drawer.Navigator>
     </>
   );

@@ -35,8 +35,7 @@ const BrowseScreen: React.FC = () => {
     <Container>
       <Header style={styles['bg-gray-300']}>
         <Body>
-          <Title style={styles['text-orange-600']}>Browse Screen</Title>
-          <Subtitle style={styles['text-orange-600']}>Render all item</Subtitle>
+          <Title style={styles['text-orange-600']}>Items for sale</Title>
         </Body>
       </Header>
       <FlatList
