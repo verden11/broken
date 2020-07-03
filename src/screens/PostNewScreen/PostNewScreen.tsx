@@ -12,8 +12,7 @@ export const PostNewScreen: React.FC = () => {
     <Container>
       <Header>
         <Body>
-          <Title>Post new Screen</Title>
-          <Subtitle>crate new listing</Subtitle>
+          <Title>Item form</Title>
         </Body>
       </Header>
       <Content padder scrollEnabled contentContainerStyle={{ flexGrow: 1 }}>
@@ -34,7 +33,7 @@ export const PostNewScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  formTitle: { textAlign: 'center', fontSize: 32, fontWeight: 'bold' },
+  formTitle: { textAlign: 'center', fontSize: 26, fontWeight: 'bold' },
 });
 
 export default PostNewScreen;

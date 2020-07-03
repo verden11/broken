@@ -16,7 +16,7 @@ const AdSchema = Yup.object().shape({
   images: Yup.array().compact().required('Required'), // @TODO img src should begin with user id
 });
 
-const NewAdForm: React.FC = () => {
+const NewAdForm: React.FC = (props) => {
   const email = auth().currentUser?.email;
   function postToFirebase(data: any) {
     const userId = auth().currentUser?.uid;
@@ -26,10 +26,12 @@ const NewAdForm: React.FC = () => {
       userID: userId,
       images: data.images.filter(Boolean),
     };
-    console.log(data);
+    console.log(formatedData);
     firestore()
       .collection('listings')
-      .add(formatedData)
+      .doc(props.id)
+      .update(formatedData)
+      // .add(formatedData)
       .then(() => console.log('added'))
       .catch(error => console.warn(error));
     // @ TODO add catch / error handling
@@ -38,10 +40,10 @@ const NewAdForm: React.FC = () => {
   return (
     <Formik
       initialValues={{
-        title: '',
-        description: '',
-        price: '',
-        images: ['', '', ''],
+        title: props.title,
+        description: props.description,
+        price: props.price,
+        images: props.images,
       }}
       validationSchema={AdSchema}
       onSubmit={postToFirebase}
@@ -54,7 +56,7 @@ const NewAdForm: React.FC = () => {
             <Input
               onChangeText={handleChange('title')}
               value={values.title}
-              placeholder="Title"
+              placeholder="title"
               style={styles.inputField}
             />
             <Textarea
@@ -70,7 +72,7 @@ const NewAdForm: React.FC = () => {
             <Input
               onChangeText={handleChange('price')}
               value={values.price}
-              placeholder="Price"
+              placeholder="price"
               style={styles.inputField}
             />
 
@@ -93,7 +95,7 @@ const NewAdForm: React.FC = () => {
               <Text>Add more images</Text>
             </Button>
             <Button onPress={handleSubmit} style={styles.justifyCenter} info>
-              <Text>Submit</Text>
+              <Text>Submit Edit</Text>
             </Button>
           </View>
         </Form>

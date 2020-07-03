@@ -4,3 +4,4 @@ export { default as ImgPicker } from './ImgPicker/ImgPicker';
 export { default as AdImageModal } from './AdImageModal/AdImageModal';
 export { default as NewAdForm } from './NewAdForm/NewAdForm';
 export { default as EditItem } from './EditItem/EditItem';
+export { default as EditForm } from './EditForm/EditForm';
