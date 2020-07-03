@@ -26,7 +26,7 @@ const NewAdForm: React.FC = () => {
       userID: userId,
       images: data.images.filter(Boolean),
     };
-    console.log(formatedData);
+    console.log(data);
     firestore()
       .collection('listings')
       .add(formatedData)
@@ -50,12 +50,11 @@ const NewAdForm: React.FC = () => {
       {/* @TODO show validation errors */}
       {({ handleChange, handleSubmit, values, setFieldValue, errors }) => (
         <Form style={styles.grow}>
-          {errors && <Text>{JSON.stringify(errors)}</Text>}
           <View style={styles.grow}>
             <Input
               onChangeText={handleChange('title')}
               value={values.title}
-              placeholder="title"
+              placeholder="Title"
               style={styles.inputField}
             />
             <Textarea
@@ -71,7 +70,7 @@ const NewAdForm: React.FC = () => {
             <Input
               onChangeText={handleChange('price')}
               value={values.price}
-              placeholder="price"
+              placeholder="Price"
               style={styles.inputField}
             />
 
