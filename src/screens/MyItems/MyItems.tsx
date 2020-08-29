@@ -6,7 +6,7 @@ import { Body, Container, Header, Subtitle, Title } from 'native-base';
 
 import { EditItem, ListItemSeparator } from '~/components';
 
-type fireStoreDoc = {
+interface IFireStoreDoc = {
   id: string;
   title?: string;
   description?: string;
@@ -15,7 +15,7 @@ type fireStoreDoc = {
 };
 
 const MyItems: React.FC = () => {
-  const [data, setData] = useState<fireStoreDoc[]>([]);
+  const [data, setData] = useState<Array<IFireStoreDoc>>([]);
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
   const userID = auth().currentUser?.uid;
   const collectionRef = firestore().collection('listings').where('userID', '==', userID);

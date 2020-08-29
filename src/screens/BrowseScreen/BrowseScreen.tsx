@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 
 import firestore from '@react-native-firebase/firestore';
-import { Body, Container, Header, Subtitle, Title } from 'native-base';
+import { Body, Container, Header, Title } from 'native-base';
 
 import { AdItem, ListItemSeparator } from '~/components';
 
-type fireStoreDoc = {
+interface IFireStoreDoc {
   id: string;
   title?: string;
   description?: string;
   price?: string;
   images?: string[];
-};
+}
 
 const BrowseScreen: React.FC = () => {
-  const [data, setData] = useState<fireStoreDoc[]>([]);
+  const [data, setData] = useState<Array<IFireStoreDoc>>([]);
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
   const collectionRef = firestore().collection('listings');
 

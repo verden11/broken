@@ -22,9 +22,4 @@ function App() {
   );
 }
 
-if (__DEV__) {
-  const whyDidYouRender = require('@welldone-software/why-did-you-render');
-  whyDidYouRender(React);
-  App.whyDidYouRender = true;
-}
 export default App;
